@@ -48,6 +48,6 @@ public class TransactionController implements TransactionControllerInterface {
     @GetMapping("/get-transactions")
     public ResponseEntity<Response<List<TransactionResponse>>> listTransaction(@RequestParam("accountNo") String accountNo) {
         Response<List<TransactionResponse>> response = transactionService.getTransactions(accountNo);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }
