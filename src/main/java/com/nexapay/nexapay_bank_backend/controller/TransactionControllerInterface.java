@@ -5,9 +5,14 @@ import com.nexapay.dto.request.TransactionRequest;
 import com.nexapay.dto.response.TransactionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 public interface TransactionControllerInterface {
     ResponseEntity<Response<Object>> apiHealth();
 
     ResponseEntity<Response<TransactionResponse>> createTransaction(@RequestBody TransactionRequest transactionRequest);
+
+    ResponseEntity<Response<List<TransactionResponse>>> listTransaction(@RequestParam String accountNo);
 }

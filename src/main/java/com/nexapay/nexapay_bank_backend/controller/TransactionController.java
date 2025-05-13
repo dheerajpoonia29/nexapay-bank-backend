@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bank")
 @CrossOrigin
@@ -40,5 +42,12 @@ public class TransactionController implements TransactionControllerInterface {
         Response<TransactionResponse> response = transactionService.createTransaction(transactionRequest);
         logger.info("send response");
         return ResponseEntity.status(response.getResponseStatus()).body(response);
+    }
+
+    @Override
+    @GetMapping("/get-transactions")
+    public ResponseEntity<Response<List<TransactionResponse>>> listTransaction(@RequestParam("accountNo") String accountNo) {
+        Response<List<TransactionResponse>> response = transactionService.getTransactions(accountNo);
+        return null;
     }
 }
