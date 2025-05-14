@@ -20,6 +20,7 @@ public class AccountServiceClient {
     private final WebClient webClient;
 
     public AccountServiceClient(WebClient.Builder builder, @Value("${user.account.api.host}") String userAccountApiHost) {
+        logger.info("database host: {}", userAccountApiHost);
         this.webClient = builder.baseUrl(userAccountApiHost).build();
     }
 
