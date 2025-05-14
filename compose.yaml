@@ -19,6 +19,7 @@ services:
       - DATABASE_URL=jdbc:mysql://mysql-container:3306/nexapay
       - DATASOURCE_USERNAME=root
       - DATASOURCE_PASSWORD=root1234
+      - USER_ACCOUNT_API_URL=http://backend-container-2:8081
     networks:
       - app-network
     ports:
