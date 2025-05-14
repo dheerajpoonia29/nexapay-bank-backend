@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: .
+    image: nexapay-bank-backend-image
+    container_name: nexapay-backend-container
+    environment:
+      - DATABASE_URL=jdbc:mysql://mysql:3306/nexapay
+    networks:
+      - app-network
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nexapay
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+
+networks:
+  app-network:
+    driver: bridge
