@@ -6,8 +6,8 @@ ENV DATASOURCE_PASSWORD=password
 
 WORKDIR $APP_HOME
 
-COPY target/nexapay-bank-backend-0.0.1-SNAPSHOT.jar nexapay-bank-backend.jar
+COPY target/nexapay-bank-backend-0.0.1-SNAPSHOT.jar .
 
 EXPOSE 8082
 
-ENTRYPOINT ["java", "-jar", "nexapay-bank-backend-image.jar"]
+ENTRYPOINT ["java", "-jar", "nexapay-bank-backend-0.0.1-SNAPSHOT.jar"]

@@ -3,7 +3,6 @@ services:
   app:
     build: .
     image: nexapay-bank-backend-image
-    container_name: nexapay-backend-container
     environment:
       - DATABASE_URL=jdbc:mysql://mysql:3306/nexapay
     networks:
@@ -11,10 +10,8 @@ services:
   mysql:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root1234
       MYSQL_DATABASE: nexapay
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
     networks:
       - app-network
     ports:

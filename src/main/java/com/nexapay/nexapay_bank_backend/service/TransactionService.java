@@ -60,6 +60,7 @@ public class TransactionService implements TransactionServiceInterface {
     @Override
     public Response<List<TransactionResponse>> getTransactions(String accountNo) {
         logger.info("find transactions");
+        // todo handle timeout or SqlExceptionHelper
         List<TransactionEntity> transactions = transactionRepository.findByFromAccountNoOrToAccountNoOrderByDateDesc(accountNo, accountNo);
 
         logger.info("return response");
