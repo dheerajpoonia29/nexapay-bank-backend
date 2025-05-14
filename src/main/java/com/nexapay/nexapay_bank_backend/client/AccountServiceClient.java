@@ -7,6 +7,7 @@ import com.nexapay.dto.response.AccountResponse;
 import com.nexapay.dto.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,8 +19,8 @@ public class AccountServiceClient {
 
     private final WebClient webClient;
 
-    public AccountServiceClient(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("http://localhost:8081").build();
+    public AccountServiceClient(WebClient.Builder builder, @Value("${user.account.api.host}") String userAccountApiHost) {
+        this.webClient = builder.baseUrl(userAccountApiHost).build();
     }
 
     public AccountResponse getAccount(String accountNo) {
