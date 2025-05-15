@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class TransactionOperationResponse {
+public class TransferOperationResponse {
     private Boolean status;
 
     private String msg;

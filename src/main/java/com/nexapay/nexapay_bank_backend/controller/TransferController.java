@@ -1,9 +1,9 @@
 package com.nexapay.nexapay_bank_backend.controller;
 
-import com.nexapay.dto.request.TransactionRequest;
-import com.nexapay.dto.response.TransactionResponse;
+import com.nexapay.dto.request.TransferRequest;
+import com.nexapay.dto.response.TransferResponse;
 import com.nexapay.dto.response.Response;
-import com.nexapay.nexapay_bank_backend.service.TransactionService;
+import com.nexapay.nexapay_bank_backend.service.TransferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/bank")
 @CrossOrigin
-public class TransactionController implements TransactionControllerInterface {
-    private static final Logger logger = LoggerFactory.getLogger(TransactionController.class);
+public class TransferController implements TransferControllerInterface {
+    private static final Logger logger = LoggerFactory.getLogger(TransferController.class);
 
     @Autowired
-    TransactionService transactionService;
+    TransferService transferService;
 
     @Override
     @GetMapping("/health")
@@ -36,18 +36,18 @@ public class TransactionController implements TransactionControllerInterface {
     }
 
     @Override
-    @PostMapping("/transaction")
-    public ResponseEntity<Response<TransactionResponse>> createTransaction(@RequestBody TransactionRequest transactionRequest) {
-        logger.info("create transaction");
-        Response<TransactionResponse> response = transactionService.createTransaction(transactionRequest);
+    @PostMapping("/transfer")
+    public ResponseEntity<Response<TransferResponse>> createTransfer(@RequestBody TransferRequest transferRequest) {
+        logger.info("create transfer");
+        Response<TransferResponse> response = transferService.createTransfer(transferRequest);
         logger.info("send response");
         return ResponseEntity.status(response.getResponseStatus()).body(response);
     }
 
     @Override
-    @GetMapping("/get-transactions")
-    public ResponseEntity<Response<List<TransactionResponse>>> listTransaction(@RequestParam("accountNo") String accountNo) {
-        Response<List<TransactionResponse>> response = transactionService.getTransactions(accountNo);
+    @GetMapping("/get-transfer")
+    public ResponseEntity<Response<List<TransferResponse>>> listTransfer(@RequestParam("accountNo") String accountNo) {
+        Response<List<TransferResponse>> response = transferService.getTransfer(accountNo);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

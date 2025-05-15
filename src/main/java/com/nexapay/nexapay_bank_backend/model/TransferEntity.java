@@ -1,7 +1,6 @@
 package com.nexapay.nexapay_bank_backend.model;
 
-import com.nexapay.dto.request.TransactionRequest;
-import com.nexapay.helper.TransactionType;
+import com.nexapay.dto.request.TransferRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,28 +8,28 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "transaction_table")
+@Table(name = "transfer_table")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TransactionEntity {
+public class TransferEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false, unique = true)
-    private Long transactionId;
+    private Long transferId;
 
     @Column(nullable = false)
-    private String accountNo;
+    private String fromAccountNo;
+
+    @Column(nullable = false)
+    private String toAccountNo;
 
     @Column(nullable = false)
     private long amount;
-
-    @Column(nullable = false)
-    TransactionType transactionType;
 
     @Column(nullable = false)
     @CreationTimestamp
@@ -39,11 +38,14 @@ public class TransactionEntity {
     @Column
     private Boolean status;
 
-    public static TransactionEntity toEntity(TransactionRequest request) {
-        return TransactionEntity.builder()
-                .accountNo(request.getAccountNo())
+    @Column
+    private String statusInfo;
+
+    public static TransferEntity toEntity(TransferRequest request) {
+        return TransferEntity.builder()
+                .fromAccountNo(request.getFromAccountNo())
+                .toAccountNo(request.getToAccountNo())
                 .amount(request.getAmount())
-                .transactionType(request.getTransactionType())
                 .build();
     }
 }
