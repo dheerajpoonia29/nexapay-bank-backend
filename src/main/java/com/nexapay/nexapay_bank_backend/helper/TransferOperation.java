@@ -3,7 +3,7 @@ package com.nexapay.nexapay_bank_backend.helper;
 import com.nexapay.dto.request.AccountRequest;
 import com.nexapay.dto.response.AccountResponse;
 import com.nexapay.nexapay_bank_backend.client.AccountServiceClient;
-import com.nexapay.nexapay_bank_backend.model.TransferEntity;
+import com.nexapay.model.TransferEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

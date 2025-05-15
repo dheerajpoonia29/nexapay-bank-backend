@@ -7,7 +7,7 @@ import com.nexapay.dto.response.TransferResponse;
 import com.nexapay.nexapay_bank_backend.dao.TransferRepository;
 import com.nexapay.nexapay_bank_backend.helper.TransferOperationResponse;
 import com.nexapay.nexapay_bank_backend.helper.TransferOperation;
-import com.nexapay.nexapay_bank_backend.model.TransferEntity;
+import com.nexapay.model.TransferEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

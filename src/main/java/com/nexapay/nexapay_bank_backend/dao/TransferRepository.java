@@ -1,6 +1,6 @@
 package com.nexapay.nexapay_bank_backend.dao;
 
-import com.nexapay.nexapay_bank_backend.model.TransferEntity;
+import com.nexapay.model.TransferEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
