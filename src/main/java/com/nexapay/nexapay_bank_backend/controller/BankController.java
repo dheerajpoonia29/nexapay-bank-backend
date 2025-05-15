@@ -2,6 +2,7 @@ package com.nexapay.nexapay_bank_backend.controller;
 
 import com.nexapay.dto.response.BankResponse;
 import com.nexapay.dto.response.Response;
+import com.nexapay.helper.BankBranch;
 import com.nexapay.nexapay_bank_backend.service.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,16 @@ public class BankController implements BankControllerInterface {
     public ResponseEntity<Response<BankResponse>> getBank(@RequestParam Integer bankId) {
         logger.info("get single bank");
         Response<BankResponse> response = bankService.fetchSingleBank(bankId);
+        return ResponseEntity
+                .status(response.getResponseStatus())
+                .body(response);
+    }
+
+    @Override
+    @GetMapping("/get-branch")
+    public ResponseEntity<Response<BankBranch>> getBranch(@RequestParam Integer bankId, @RequestParam String ifscCode) {
+        logger.info("get branch by ifsc code");
+        Response<BankBranch> response = bankService.searchAndGetBranch(bankId, ifscCode);
         return ResponseEntity
                 .status(response.getResponseStatus())
                 .body(response);
