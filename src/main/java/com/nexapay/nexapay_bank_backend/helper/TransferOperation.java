@@ -2,7 +2,7 @@ package com.nexapay.nexapay_bank_backend.helper;
 
 import com.nexapay.dto.request.AccountRequest;
 import com.nexapay.dto.response.AccountResponse;
-import com.nexapay.nexapay_bank_backend.client.AccountServiceClient;
+import com.nexapay.nexapay_bank_backend.client.AccountClient;
 import com.nexapay.model.TransferEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +14,12 @@ public class TransferOperation {
     private static final Logger logger = LoggerFactory.getLogger(TransferOperation.class);
 
     @Autowired
-    AccountServiceClient accountServiceClient;
+    AccountClient accountClient;
 
     public TransferOperationResponse doTransferOperation(TransferEntity transferEntity) {
         logger.info("get account detail");
-        AccountResponse senderAccount = accountServiceClient.getAccount(transferEntity.getFromAccountNo());
-        AccountResponse receiverAccount = accountServiceClient.getAccount(transferEntity.getToAccountNo());
+        AccountResponse senderAccount = accountClient.getAccount(transferEntity.getFromAccountNo());
+        AccountResponse receiverAccount = accountClient.getAccount(transferEntity.getToAccountNo());
 
         logger.info("validate receiver account no");
         if (senderAccount==null)
@@ -42,8 +42,8 @@ public class TransferOperation {
                 .build();
 
         logger.info("persist updated account");
-        accountServiceClient.updateAccount(senderAccountRequest);
-        accountServiceClient.updateAccount(receiverAccountRequest);
+        accountClient.updateAccount(senderAccountRequest);
+        accountClient.updateAccount(receiverAccountRequest);
 
         logger.info("return response");
         return TransferOperationResponse.builder().status(true).msg("transfer is success").build();

@@ -14,12 +14,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
-public class AccountServiceClient {
-    private static final Logger logger = LoggerFactory.getLogger(AccountServiceClient.class);
+public class AccountClient {
+    private static final Logger logger = LoggerFactory.getLogger(AccountClient.class);
 
     private final WebClient webClient;
 
-    public AccountServiceClient(WebClient.Builder builder, @Value("${user.account.api.host}") String userAccountApiHost) {
+    public AccountClient(WebClient.Builder builder, @Value("${user.account.api.host}") String userAccountApiHost) {
         logger.info("user api host: {}", userAccountApiHost);
         this.webClient = builder.baseUrl(userAccountApiHost).build();
     }

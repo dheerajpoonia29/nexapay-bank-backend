@@ -23,15 +23,15 @@ public class TransferController implements TransferControllerInterface {
     TransferService transferService;
 
     @Override
-    @GetMapping("/health")
+    @GetMapping("/transfer/health")
     public ResponseEntity<Response<Object>> apiHealth() {
-        logger.info("account api");
+        logger.info("bank transfer api");
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
                         .responseStatus(HttpStatus.OK)
                         .responseStatusInt(HttpStatus.OK.value())
-                        .responseMsg("bank api is up!!")
+                        .responseMsg("bank transfer api is up!!")
                         .responseData(null).build());
     }
 
@@ -45,7 +45,7 @@ public class TransferController implements TransferControllerInterface {
     }
 
     @Override
-    @GetMapping("/get-transfer")
+    @GetMapping("/get-transfers")
     public ResponseEntity<Response<List<TransferResponse>>> listTransfer(@RequestParam("accountNo") String accountNo) {
         Response<List<TransferResponse>> response = transferService.getTransfer(accountNo);
         return ResponseEntity.status(HttpStatus.OK).body(response);

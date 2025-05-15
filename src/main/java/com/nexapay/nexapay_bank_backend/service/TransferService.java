@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.nexapay.nexapay_bank_backend.helper.CreateTransferResponse.createResponse;
+import static com.nexapay.nexapay_bank_backend.helper.ResponseUtil.createResponse;
 
 @Service
 public class TransferService implements TransferServiceInterface {
@@ -49,11 +49,26 @@ public class TransferService implements TransferServiceInterface {
 
         logger.info("create transfer response");
         if(persistStatus) {
-            return  createResponse(HttpStatus.CREATED, "transfer created", transferEntity);
+            return createResponse(
+                    HttpStatus.CREATED,
+                    "transfer created",
+                    transferEntity,
+                    entity -> TransferResponse.builder()
+                            .transferId(transferEntity.getTransferId())
+                            .fromAccountNo(transferEntity.getFromAccountNo())
+                            .toAccountNo(transferEntity.getToAccountNo())
+                            .amount(transferEntity.getAmount())
+                            .date(transferEntity.getDate())
+                            .status(transferEntity.getStatus())
+                            .statusInfo(transferEntity.getStatusInfo()).build());
         }
         transferEntity.setStatus(false);
         transferEntity.setStatusInfo("internal server error");
-        return  createResponse(HttpStatus.INTERNAL_SERVER_ERROR, transferEntity.getStatusInfo(), null);
+        return createResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                transferEntity.getStatusInfo(),
+                null
+                ,null);
     }
 
     @Override
@@ -63,9 +78,9 @@ public class TransferService implements TransferServiceInterface {
         List<TransferEntity> transfer = transferRepository.findByFromAccountNoOrToAccountNoOrderByDateDesc(accountNo, accountNo);
 
         logger.info("return response");
-        List<TransferResponse> TransferResponseList = new ArrayList<>();
+        List<TransferResponse> transferResponseList = new ArrayList<>();
         for (TransferEntity transferEntity : transfer) {
-            TransferResponseList.add(TransferResponse.builder()
+            transferResponseList.add(TransferResponse.builder()
                     .transferId(transferEntity.getTransferId())
                     .fromAccountNo(transferEntity.getFromAccountNo())
                     .toAccountNo(transferEntity.getToAccountNo())
@@ -78,6 +93,6 @@ public class TransferService implements TransferServiceInterface {
                 .responseStatus(HttpStatus.OK)
                 .responseStatusInt(HttpStatus.OK.value())
                 .responseMsg("transfer found")
-                .responseData(TransferResponseList).build();
+                .responseData(transferResponseList).build();
     }
 }
