@@ -71,7 +71,7 @@ public class BankService implements BankServiceInterface{
     }
 
     @Override
-    public Response<BankBranch> searchAndGetBranch(Integer bankId, String ifscCode) {
+    public Response<Object> searchAndGetBranch(Integer bankId, String ifscCode) {
         logger.info("get bank by id");
         Response<BankResponse> bankResponse = fetchSingleBank(bankId);
         if(bankResponse.getResponseStatus()==HttpStatus.NOT_FOUND) {
@@ -96,15 +96,15 @@ public class BankService implements BankServiceInterface{
         }
 
         if(bankBranch==null) {
-            logger.error("branch not found with ifsc code: {}", ifscCode);
+            logger.warn("branch not found with ifsc code: {}", ifscCode);
             return createResponse(
                     HttpStatus.NOT_FOUND,
-                    "bank not found",
+                    "branch not found",
                     null,
                     entity -> null);
         }
 
-        logger.error("branch found with ifsc code: {}", ifscCode);
+        logger.warn("branch found with ifsc code: {}", ifscCode);
         return Response.builder()
                 .responseStatus(HttpStatus.OK)
                 .responseStatusInt(HttpStatus.OK.value())
