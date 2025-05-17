@@ -23,9 +23,9 @@ public class TransferOperation {
 
         logger.info("validate receiver account no");
         if (senderAccount==null)
-            return TransferOperationResponse.builder().status(false).msg("sender account no found").build();
+            return TransferOperationResponse.builder().status(false).msg("sender account not found").build();
         if(receiverAccount==null)
-           return TransferOperationResponse.builder().status(false).msg("receiver account no found").build();
+           return TransferOperationResponse.builder().status(false).msg("receiver account not found").build();
 
         logger.info("check available balance in sender account");
         if(senderAccount.getBalance()< transferEntity.getAmount())

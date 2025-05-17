@@ -28,7 +28,7 @@ public class AccountClient {
         logger.info("get accountNo: {}", accountNo);
 
         return webClient.get()
-                .uri("/account/search-by-account-no?accountNo={accountNo}", accountNo)
+                .uri("/account/get-by-account-no?accountNo={accountNo}", accountNo)
                 .exchangeToMono(response -> {
                     HttpStatus status = (HttpStatus) response.statusCode();
 

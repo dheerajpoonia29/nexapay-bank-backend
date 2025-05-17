@@ -83,10 +83,8 @@ public class BankService implements BankServiceInterface{
                     entity -> null);
         }
 
-        logger.info("validate branches");
-        List<BankBranch> bankBranchList = bankResponse.getResponseData().getBranches();
-
         logger.info("filter branch with ifsc code");
+        List<BankBranch> bankBranchList = bankResponse.getResponseData().getBranches();
         BankBranch bankBranch = null;
         for (BankBranch obj: bankBranchList) {
             if(obj.getIfscCode().equals(ifscCode)) {
@@ -96,7 +94,7 @@ public class BankService implements BankServiceInterface{
         }
 
         if(bankBranch==null) {
-            logger.warn("branch not found with ifsc code: {}", ifscCode);
+            logger.info("branch not found with ifsc code: {}", ifscCode);
             return createResponse(
                     HttpStatus.NOT_FOUND,
                     "branch not found",
@@ -104,7 +102,7 @@ public class BankService implements BankServiceInterface{
                     entity -> null);
         }
 
-        logger.warn("branch found with ifsc code: {}", ifscCode);
+        logger.info("branch found with ifsc code: {}", ifscCode);
         return Response.builder()
                 .responseStatus(HttpStatus.OK)
                 .responseStatusInt(HttpStatus.OK.value())
