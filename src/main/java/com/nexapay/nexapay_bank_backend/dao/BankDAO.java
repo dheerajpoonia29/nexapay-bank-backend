@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -28,6 +29,19 @@ public class BankDAO {
     public BankEntity getBankById(Integer bankId) {
         logger.info("dao get bank by id");
         return bankRepository.findById(bankId).orElse(null);
+    }
+
+
+    public void addBranchToBank(Integer bankId, BankBranch newBranch) {
+        BankEntity bank = bankRepository.findById(bankId)
+                .orElseThrow(() -> new RuntimeException("Bank not found"));
+
+        if (bank.getBranches() == null) {
+            bank.setBranches(new ArrayList<>());
+        }
+
+        bank.getBranches().add(newBranch);
+        bankRepository.save(bank);
     }
 
 }
