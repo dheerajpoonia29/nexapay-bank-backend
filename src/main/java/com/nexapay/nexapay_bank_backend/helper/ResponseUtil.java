@@ -1,8 +1,6 @@
 package com.nexapay.nexapay_bank_backend.helper;
 
 import com.nexapay.dto.response.Response;
-import com.nexapay.dto.response.TransferResponse;
-import com.nexapay.model.TransferEntity;
 import org.springframework.http.HttpStatus;
 
 import java.util.function.Function;

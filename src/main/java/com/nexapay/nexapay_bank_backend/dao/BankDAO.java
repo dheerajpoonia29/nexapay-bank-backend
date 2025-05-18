@@ -1,11 +1,7 @@
 package com.nexapay.nexapay_bank_backend.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.nexapay.dto.response.BankResponse;
 import com.nexapay.helper.BankBranch;
 import com.nexapay.model.BankEntity;
-import com.nexapay.nexapay_bank_backend.service.BankService;
-import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

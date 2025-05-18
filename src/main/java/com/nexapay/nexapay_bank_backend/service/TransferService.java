@@ -2,9 +2,9 @@ package com.nexapay.nexapay_bank_backend.service;
 
 import com.nexapay.dto.request.TransferRequest;
 import com.nexapay.dto.response.Response;
+import com.nexapay.helper.HelperUtil;
 import com.nexapay.nexapay_bank_backend.dao.TransferDAO;
 import com.nexapay.dto.response.TransferResponse;
-import com.nexapay.nexapay_bank_backend.dao.TransferRepository;
 import com.nexapay.nexapay_bank_backend.helper.TransferOperationResponse;
 import com.nexapay.nexapay_bank_backend.helper.TransferOperation;
 import com.nexapay.model.TransferEntity;
@@ -29,15 +29,12 @@ public class TransferService implements TransferServiceInterface {
     @Autowired
     TransferOperation transferOperation;
 
-    @Autowired
-    TransferRepository transferRepository;
-
     public Response<TransferResponse> createTransfer(TransferRequest transferRequest) {
         logger.info("create transfer entity");
         TransferEntity transferEntity = TransferEntity.toEntity(transferRequest);
 
         logger.info("generate transfer id");
-        transferEntity.setTransferId(this.transferOperation.generateTransferId());
+        transferEntity.setTransferId(HelperUtil.generateTransactionId());
 
         logger.info("do transfer operation");
         TransferOperationResponse TransferOperation = this.transferOperation.doTransferOperation(transferEntity);
@@ -75,7 +72,7 @@ public class TransferService implements TransferServiceInterface {
     public Response<List<TransferResponse>> getTransfer(String accountNo) {
         logger.info("find transfer");
         // todo handle timeout or SqlExceptionHelper
-        List<TransferEntity> transfer = transferRepository.findByFromAccountNoOrToAccountNoOrderByDateDesc(accountNo, accountNo);
+        List<TransferEntity> transfer = transferDAO.getTransfers(accountNo, accountNo);
 
         logger.info("return response");
         List<TransferResponse> transferResponseList = new ArrayList<>();

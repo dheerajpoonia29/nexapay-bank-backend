@@ -22,13 +22,13 @@ public class TransferOperation {
         AccountResponse receiverAccount = accountClient.getAccount(transferEntity.getToAccountNo());
 
         logger.info("validate receiver account no");
-        if (senderAccount==null)
+        if (senderAccount == null)
             return TransferOperationResponse.builder().status(false).msg("sender account not found").build();
-        if(receiverAccount==null)
-           return TransferOperationResponse.builder().status(false).msg("receiver account not found").build();
+        if (receiverAccount == null)
+            return TransferOperationResponse.builder().status(false).msg("receiver account not found").build();
 
         logger.info("check available balance in sender account");
-        if(senderAccount.getBalance()< transferEntity.getAmount())
+        if (senderAccount.getBalance() < transferEntity.getAmount())
             return TransferOperationResponse.builder().status(false).msg("sender have insufficient balance").build();
 
         logger.info("deduct amount from sender and add in receiver account");
@@ -47,11 +47,5 @@ public class TransferOperation {
 
         logger.info("return response");
         return TransferOperationResponse.builder().status(true).msg("transfer is success").build();
-    }
-
-    public long generateTransferId() {
-        long timestamp = System.currentTimeMillis(); // 13-digit
-        long randomSuffix = (long)(Math.random() * 9000) + 1000; // 4-digit random
-        return (timestamp / 1000) * 10000 + randomSuffix; // trims to 10-11 digits
     }
 }
