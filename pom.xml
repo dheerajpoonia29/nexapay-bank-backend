@@ -17,21 +17,6 @@
 	<name>nexapay-bank-backend</name>
 	<description>Demo project for Spring Boot</description>
 
-	<url/>
-
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
-
 	<packaging>jar</packaging>
 
 	<properties>
